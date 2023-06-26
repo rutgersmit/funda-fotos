@@ -1,7 +1,7 @@
 // domRef is the div element of the house
 function httpGetAsync(theUrl, domRef, callback) {
   //theUrl = 'https://www.funda.nl/koop/laren-nh/huis-42252648-mauvezand-20/';
-  var xmlHttp = new XMLHttpRequest();
+  let xmlHttp = new XMLHttpRequest();
   xmlHttp.onreadystatechange = function () {
     if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
       parseHouse(domRef, xmlHttp.responseText);
@@ -16,16 +16,17 @@ function parseHouse(domRef, data) {
   // make an empty array to store the images
   let images = [];
 
-  var parser = new DOMParser();
-  var domObj = parser.parseFromString(data, "text/html");
+  let parser = new DOMParser();
+  let domObj = parser.parseFromString(data, "text/html");
 
   domObj
     .querySelectorAll('img[class="media-viewer-overview__section-image"]')
     .forEach(function (img) {
-      let imgUrl = img.getAttribute("data-lazy");
-      if (imgUrl.indexOf("plattegrond") > 0) return;
+      // skip the 360 and floorplan images
+      let alt = img.getAttribute("alt").toLowerCase();
+      if (alt.indexOf("360") >=0 || alt.indexOf("plattegrond") >= 0) return;
 
-      images.push(imgUrl);
+      images.push(img.getAttribute("data-lazy"));
     });
 
     let html = '<div style="width: 100%; overflow-x: auto;"><div style="display: flex;" onclick="navigator.clipboard.writeText(\'lalala\').then(() => {}, () => {});">';
@@ -57,7 +58,7 @@ function upgradeHouse(elem){
 
 
 function startUpgrading(){
-  var elems = document.querySelectorAll(
+  let elems = document.querySelectorAll(
     'div[data-test-id="search-result-item"]'
   );
 
