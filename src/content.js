@@ -41,7 +41,6 @@ function parseHouse(domRef, data) {
     html += "</div></div>";
     images = [];
 
-
     let div = document.createElement("div");
     div.innerHTML = html;
     domRef.parentElement.appendChild(div);
@@ -52,10 +51,10 @@ function parseHouse(domRef, data) {
 function upgradeHouse(elem){
   let url = elem.querySelector('a[data-test-id="object-image-link"]').href;
   console.log(url);
+  //elem.querySelector('h2').innerHTML += " - check";
 
   httpGetAsync(url, elem, parseHouse);
 }
-
 
 function startUpgrading(){
   let elems = document.querySelectorAll(
@@ -65,7 +64,28 @@ function startUpgrading(){
   for (var i = 0; i < elems.length; i++) {
     upgradeHouse(elems[i]);
   }
+
+  console.log("releasing lock");
 }
+
+
+function debounce(func, timeout = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
+
+const processChange = debounce(() => startUpgrading());
+new MutationObserver(function () {
+  processChange();
+}).observe(document.querySelector('div[id^="vue-portal-target"]'), {
+  childList: true,
+  subtree: true,
+});
 
 
 startUpgrading();
