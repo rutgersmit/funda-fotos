@@ -64,8 +64,6 @@ function startUpgrading(){
   for (var i = 0; i < elems.length; i++) {
     upgradeHouse(elems[i]);
   }
-
-  console.log("releasing lock");
 }
 
 
