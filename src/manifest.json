@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Funda Foto Extender",
   "version": "1.0.0",
-  "description": "Deze extension laat op de lijstpagina van Funda de foto zien de woning. Je hoeft dardoor niet naar de detailpagina te gaan om de foto te zien.",
+  "description": "Deze extension laat op de lijstpagina van Funda meer foto's zien. Je hoeft daardoor niet naar de detailpagina.",
   "icons": {
     "16": "icon-16.png",
     "19": "icon-19.png",
