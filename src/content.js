@@ -53,7 +53,7 @@ function parseHouse(domRef, data) {
 
 // elem is the div element of the house
 function upgradeHouse(elem){
-  let url = elem.querySelector('a[data-test-id="object-image-link"]').href;
+  let url = elem.querySelector('a[data-object-url-tracking="resultlist"]').href;
   //console.log(url);
   //elem.querySelector('h2').innerHTML += " - check";
 
@@ -62,9 +62,10 @@ function upgradeHouse(elem){
 
 function startUpgrading(){
   let elems = document.querySelectorAll(
-    'div[data-test-id="search-result-item"]'
+    'div[class="search-result-content"], div[class="search-result-content-promo"]'
   );
 
+  console.log(elems.length);
   for (var i = 0; i < elems.length; i++) {
     upgradeHouse(elems[i]);
   }
@@ -84,7 +85,7 @@ function debounce(func, timeout = 300) {
 const processChange = debounce(() => startUpgrading());
 new MutationObserver(function () {
   processChange();
-}).observe(document.querySelector('div[id^="vue-portal-target"]'), {
+}).observe(document.querySelector('div[data-component="pagination"]'), {
   childList: true,
   subtree: true,
 });
