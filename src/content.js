@@ -7,9 +7,21 @@ function httpGetAsync(theUrl, domRef, callback) {
     console.log("url: " + theUrl + " - onreadystatechange: " + xmlHttp.readyState + " - " + xmlHttp.status);
     if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
       parseHouse(domRef, xmlHttp.responseText);
+    else if(xmlHttp.status == 404)
+      houseDoesNotExist(domRef);
   };
   xmlHttp.open("GET", theUrl, true);
   xmlHttp.send(null);
+}
+
+function houseDoesNotExist(domRef) {
+  let html = '<div class="x" style="width: 100%; overflow-x: auto;"><div style="display: flex;">';
+  html += "Huis bestaat niet";
+  html += "</div></div>";
+
+  let div = document.createElement("div");
+  div.innerHTML = html;
+  domRef.parentElement.appendChild(div);
 }
 
 
