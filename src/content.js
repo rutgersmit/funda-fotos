@@ -7,10 +7,12 @@ function httpGetAsync(houseId, theUrl, domRef, callback) {
   let xmlHttp = new XMLHttpRequest();
   xmlHttp.onreadystatechange = function () {
     //log("url: " + theUrl + " - onreadystatechange: " + xmlHttp.readyState + " - " + xmlHttp.status);
-    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-      parseHouse(houseId, domRef, xmlHttp.responseText);
-    else if(xmlHttp.status == 404)
-      houseDoesNotExist(houseId, domRef);
+    if (xmlHttp.readyState == 4){
+      if (xmlHttp.status == 200)
+        parseHouse(houseId, domRef, xmlHttp.responseText);
+      else if (xmlHttp.status == 404 || xmlHttp.status == 410)
+        houseDoesNotExist(houseId, domRef);
+    }
   };
 
   xmlHttp.open("GET", theUrl, true);
@@ -23,7 +25,7 @@ function houseDoesNotExist(houseId, domRef) {
 
   let html =
     '<div class="x" style="width: 100%; overflow-x: auto;"><div style="display: flex;">';
-  html += "Huis bestaat niet";
+  html += "Huis bestaat (nog) niet";
   html += "</div></div>";
 
   let div = document.createElement("div");
@@ -113,7 +115,9 @@ function startUpgrading(){
 
   log(elems.length + " houses found");
   for (var i = 0; i < elems.length; i++) {
-    let houseId = elems[i].querySelector('a').href.match(/huis-(\d+)/)[1];
+    let houseId = elems[i]
+      .querySelector("a")
+      .href.match(/(?:huis|appartement)-(\d+)/)[1];
     log("[" + houseId + "] Found");
     // from the variable url, print the number after the word 'huis-'
     upgradeHouse(houseId, elems[i]);
