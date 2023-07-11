@@ -31,9 +31,10 @@ jobs:
 
       # Upload it to Chrome Webstore
       - name: Upload & release
-        uses: mnao305/chrome-extension-upload@2.0.0
+        uses: mnao305/chrome-extension-upload@v4.0.1
         with:
           file-path: './extension.zip'
           extension-id: ${{ secrets.EXTENSIONID }}
           client-id: ${{ secrets.CLIENTID }}
+          client-secret: ${{ secrets.CLIENTSECRET }}
           refresh-token: ${{ secrets.REFRESHTOKEN }}
