@@ -36,11 +36,13 @@ function houseDoesNotExist(houseId, domRef) {
 
 // domRef is the div element of the house
 function parseHouse(houseId, domRef, data) {
-  if (domRef.parentElement.querySelectorAll('div[class="x"]').length > 0) {
-    // some houses have already been upgraded, don't know why 🤷‍♀️
-    log("["+ houseId+"] Already upgraded");
-    return;
-  }
+  // temp disabled  because of false positives
+
+  // if (domRef.parentElement.querySelectorAll('div[class="x"]').length > 0) {
+  //   // some houses have already been upgraded, don't know why 🤷‍♀️
+  //   log("["+ houseId+"] Already upgraded");
+  //   return;
+  // }
 
   log("["+ houseId+"] Parse house data");
 
