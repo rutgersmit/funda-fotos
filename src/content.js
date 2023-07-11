@@ -24,7 +24,7 @@ function houseDoesNotExist(houseId, domRef) {
   log("["+ houseId+"] House does not exist (yet)");
 
   let html =
-    '<div class="x" style="width: 100%; overflow-x: auto;"><div style="display: flex;">';
+    '<div class="x" style="width: 100%; overflow-x: auto;"><div style="display: flex;" title="of Funda werkt even neit mee">';
   html += "Huis bestaat (nog) niet";
   html += "</div></div>";
 
