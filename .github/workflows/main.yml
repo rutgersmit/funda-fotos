@@ -30,10 +30,20 @@ jobs:
           args: zip -qq -r extension.zip src
 
       # Upload it to Chrome Webstore
-      - name: Upload & release
-        uses: mnao305/chrome-extension-upload@2.0.0
+      - name: Chrome Extension upload & publish
+        # You may pin to the exact commit or the version.
+        # uses: Passiverecords/chrome-extension-upload-action@d46910ee6515270bde08c1fe2bf0bceaaf5d7fb7
+        uses: Passiverecords/chrome-extension-upload-action@1.4.1
         with:
-          file-path: './extension.zip'
-          extension-id: ${{ secrets.EXTENSIONID }}
-          client-id: ${{ secrets.CLIENTID }}
+          # Auth refresh token
           refresh-token: ${{ secrets.REFRESHTOKEN }}
+          # Extension application target id
+          app-id: ${{ secrets.EXTENSIONID }}
+          # Token client id
+          client-id: ${{ secrets.CLIENTID }}
+          # Token client secret
+          client-secret: ${{ secrets.CLIENTSECRET }}
+          # Name of zipped target upload file
+          file-name: './extension.zip'
+          # True Or False to publish after upload
+          publish: true
