@@ -1,13 +1,10 @@
 {
   "manifest_version": 3,
   "name": "Funda Foto Extender",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Alle foto's van een Funda object in 1 keer bekijken op de lijst pagina.",
   "icons": {
     "16": "icon-16.png",
-    "19": "icon-19.png",
-    "32": "icon-32.png",
-    "38": "icon-38.png",
     "48": "icon-48.png",
     "128": "icon-128.png"
   },

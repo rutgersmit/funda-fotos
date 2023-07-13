@@ -24,7 +24,7 @@ function houseDoesNotExist(houseId, domRef) {
   log("["+ houseId+"] House does not exist (yet)");
 
   let html =
-    '<div class="x" style="width: 100%; overflow-x: auto;"><div style="display: flex;" title="of Funda werkt even neit mee">';
+    '<div class="x" style="width: 100%; overflow-x: auto;"><div style="display: flex;" title="of Funda werkt even niet mee">';
   html += "Huis bestaat (nog) niet";
   html += "</div></div>";
 
@@ -38,11 +38,11 @@ function houseDoesNotExist(houseId, domRef) {
 function parseHouse(houseId, domRef, data) {
   // temp disabled  because of false positives
 
-  // if (domRef.parentElement.querySelectorAll('div[class="x"]').length > 0) {
-  //   // some houses have already been upgraded, don't know why 🤷‍♀️
-  //   log("["+ houseId+"] Already upgraded");
-  //   return;
-  // }
+  if (domRef.parentElement.querySelectorAll('div[class="x"]').length > 0) {
+    // some houses have already been upgraded, don't know why 🤷‍♀️
+    log("["+ houseId+"] Already upgraded");
+    return;
+  }
 
   log("["+ houseId+"] Parse house data");
 
