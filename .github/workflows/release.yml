@@ -1,8 +1,9 @@
 name: Upload to Web Store
 on:
-  push:
-    tags:
-      - '*'
+  # Triggers the workflow on push or pull request events but only for the main branch
+  pull_request:
+    branches: [ main ]
+
 jobs:
   build-extension:
     runs-on: ubuntu-latest
