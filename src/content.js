@@ -98,7 +98,7 @@ function upgradeHouse(houseId, elem) {
   let url = "https://www.funda.nl/" + houseId;
 
   log("[" + houseId + "] Upgrade via " + url);
-  elem.querySelector('h2').innerHTML += " 🏳️";
+//  elem.querySelector('h2').innerHTML += " 🏳️";
 
   httpGetAsync(houseId, url, elem, parseHouse);
 }
