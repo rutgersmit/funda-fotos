@@ -1,5 +1,4 @@
-let LOG = true;
-
+let LOG = false;
 // domRef is the div element of the house
 function httpGetAsync(houseId, theUrl, domRef, callback) {
   log("[" + houseId + "] Get " + theUrl);
@@ -36,9 +35,8 @@ function houseDoesNotExist(houseId, domRef) {
 
 // domRef is the div element of the house
 function parseHouse(houseId, domRef, data) {
-  // temp disabled  because of false positives
-
   if (domRef.parentElement.querySelectorAll('div[class="x"]').length > 0) {
+    //domRef.parentElement.querySelectorAll('div[class="x"]')[0].remove();
     // some houses have already been upgraded, don't know why 🤷‍♀️
     log("["+ houseId+"] Already upgraded");
     return;
@@ -72,14 +70,10 @@ function parseHouse(houseId, domRef, data) {
 
   log("[" + houseId + "] Adding " + images.length + " images");
 
-  // for future use:  onclick="navigator.clipboard.writeText(\'lalala\').then(() => {}, () => {});"
   let html =
     '<div class="x" style="width: 100%; overflow-x: auto;"><div style="display: flex;">';
   images.forEach(function (img) {
-    html +=
-      "<a target='_blank' href='" +
-      img +
-      "' style='margin: 10px;'><img src='" +
+    html += "<a target='_blank' href='" + img + "' style='margin: 10px;'><img src='" +
       img.replace("1440x960", "360x240") +
       "' style='width: 360px; height: 240px; max-width: initial;'/></a>";
   });
@@ -115,6 +109,7 @@ function startUpgrading(){
   let querySelectorTag = 'div[data-test-id="search-result-item"]';
   let elems = document.querySelectorAll(querySelectorTag);
 
+  count = elems.length;
   log(elems.length + " houses found");
   for (var i = 0; i < elems.length; i++) {
     let houseId = elems[i]
@@ -145,8 +140,9 @@ function debounce(func, timeout = 300) {
 
 
 const processChange = debounce(() => startUpgrading());
-let querySelectorTag = 'ul[class="pagination pagination-mobile"]';
-
+//let querySelectorTag = 'ul[class="pagination pagination-mobile"]';
+//let querySelectorTag = 'div[componentid="search_result"]';
+let querySelectorTag = 'div[id^="vue-portal-target"]';
 new MutationObserver(function () {
   log("Navigated");
   processChange();
@@ -155,5 +151,7 @@ new MutationObserver(function () {
   subtree: true,
   attributes: true
 });
+
+log("Funda Image Upgrader started");
 
 startUpgrading();
