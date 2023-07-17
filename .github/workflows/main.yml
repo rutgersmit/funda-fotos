@@ -14,36 +14,39 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  build-extension:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      
-      # Zip the src folder
-      - name: action-zip
-        uses: montudor/action-zip@v1.0.0
-        with:
-          args: zip -qq -r extension.zip src
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/buildextension
 
-      # Upload it to Chrome Webstore
-      - name: Chrome Extension upload & publish
-        # You may pin to the exact commit or the version.
-        # uses: Passiverecords/chrome-extension-upload-action@d46910ee6515270bde08c1fe2bf0bceaaf5d7fb7
-        uses: Passiverecords/chrome-extension-upload-action@1.4.1
-        with:
-          # Auth refresh token
-          refresh-token: ${{ secrets.REFRESHTOKEN }}
-          # Extension application target id
-          app-id: ${{ secrets.EXTENSIONID }}
-          # Token client id
-          client-id: ${{ secrets.CLIENTID }}
-          # Token client secret
-          client-secret: ${{ secrets.CLIENTSECRET }}
-          # Name of zipped target upload file
-          file-name: './extension.zip'
-          # True Or False to publish after upload
-          publish: true
+      # # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # - uses: actions/checkout@v2
+
+      # # Zip the src folder
+      # - name: action-zip
+      #   uses: montudor/action-zip@v1.0.0
+      #   with:
+      #     args: zip -qq -r extension.zip src
+
+      # # Upload it to Chrome Webstore
+      # - name: Chrome Extension upload & publish
+      #   # You may pin to the exact commit or the version.
+      #   # uses: Passiverecords/chrome-extension-upload-action@d46910ee6515270bde08c1fe2bf0bceaaf5d7fb7
+      #   uses: Passiverecords/chrome-extension-upload-action@1.4.1
+      #   with:
+      #     # Auth refresh token
+      #     refresh-token: ${{ secrets.REFRESHTOKEN }}
+      #     # Extension application target id
+      #     app-id: ${{ secrets.EXTENSIONID }}
+      #     # Token client id
+      #     client-id: ${{ secrets.CLIENTID }}
+      #     # Token client secret
+      #     client-secret: ${{ secrets.CLIENTSECRET }}
+      #     # Name of zipped target upload file
+      #     file-name: './extension.zip'
+      #     # True Or False to publish after upload
+      #     publish: true
