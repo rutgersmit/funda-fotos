@@ -33,7 +33,7 @@ jobs:
       - name: Chrome Extension upload & publish
         # You may pin to the exact commit or the version.
         # uses: Passiverecords/chrome-extension-upload-action@d46910ee6515270bde08c1fe2bf0bceaaf5d7fb7
-        uses: themihel/chrome-extension-upload-action@latest
+        uses: themihel/chrome-extension-upload-action@b197cf96670161d3ec735b63b481ffffc63676d8
         with:
           # Auth refresh token
           refresh-token: ${{ secrets.REFRESHTOKEN }}
