@@ -24,7 +24,7 @@ function houseDoesNotExist(houseId, domRef) {
 
   let html =
     '<div class="x" style="width: 100%; overflow-x: auto;"><div style="display: flex;" title="of Funda werkt even niet mee">';
-  html += "Huis bestaat (nog) niet";
+  html += "Huis bestaat nog niet helemaal (Funda werkt even niet mee)";
   html += "</div></div>";
 
   let div = document.createElement("div");
