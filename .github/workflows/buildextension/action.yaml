@@ -16,7 +16,7 @@ runs:
       shell: bash
 
     - name: Pack extension
-      working-directory: extension
+      working-directory: out
       run: zip -r extension-${{ github.event.pull_request.head.sha }}.zip *
       shell: bash
 
@@ -24,4 +24,4 @@ runs:
       uses: actions/upload-artifact@v3
       with:
         name: extension-${{ github.sha }}
-        path: extension/extension-${{ github.event.pull_request.head.sha }}.zip
+        path: out/extension-${{ github.event.pull_request.head.sha }}.zip
