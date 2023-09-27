@@ -1,8 +1,8 @@
 let LOG = false;
+
 // domRef is the div element of the house
 function httpGetAsync(houseId, theUrl, domRef, callback) {
   log("[" + houseId + "] Get " + theUrl);
-  //theUrl = 'https://www.funda.nl/koop/laren-nh/huis-42252648-mauvezand-20/';
   let xmlHttp = new XMLHttpRequest();
   xmlHttp.onreadystatechange = function () {
     //log("url: " + theUrl + " - onreadystatechange: " + xmlHttp.readyState + " - " + xmlHttp.status);
@@ -79,7 +79,7 @@ function parseHouse(houseId, domRef, data) {
   });
 
   if (images.length == 0) {
-    html += "Geen extra foto's beschikbaar";
+    html += "Geen extra foto's beschikbaar 😞";
   }
 
   html += "</div></div>";
@@ -98,13 +98,15 @@ function upgradeHouse(houseId, elem) {
   let url = "https://www.funda.nl/" + houseId;
 
   log("[" + houseId + "] Upgrade via " + url);
-  elem.querySelector('h2').innerHTML += " 🏳️";
+  elem.querySelector('h2').innerHTML += "▫️";
 
   httpGetAsync(houseId, url, elem, parseHouse);
 }
 
 
-function startUpgrading(){
+function startUpgrading(source){
+  log("Start upgrading");
+
   //let querySelectorTag = 'div[class="search-result-content"], div[class="search-result-content-promo"]';
   let querySelectorTag = 'div[data-test-id="search-result-item"]';
   let elems = document.querySelectorAll(querySelectorTag);
