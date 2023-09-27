@@ -1,30 +1,49 @@
-name: Publish
+# This is a basic workflow to help you get started with Actions
 
-on:  
-  push:
+name: Publish to Chrome Webstore
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  # This workflow contains a single job called "build"
   build:
-    name: Publish webextension
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 12
-    - name: Build
-      run: |
-        npm ci
-        npm run build
-    - name: Upload & release
-      uses: mnao305/chrome-extension-upload@v4.0.1
-      with:
-        file-path: dist/file.zip
-        extension-id: ${{ secrets.EXTENSIONID }}
-        client-id: ${{ secrets.CLIENTID }}
-        client-secret: ${{ secrets.CLIENTSECRET }}
-        refresh-token: ${{ secrets.REFRESHTOKEN }}
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      # Zip the src folder
+      - name: action-zip
+        uses: montudor/action-zip@v1.0.0
+        with:
+          args: zip -qq -r extension.zip src
+
+      # Upload it to Chrome Webstore
+      - name: Chrome Extension upload & publish
+        # You may pin to the exact commit or the version.
+        # uses: Passiverecords/chrome-extension-upload-action@d46910ee6515270bde08c1fe2bf0bceaaf5d7fb7
+        uses: Passiverecords/chrome-extension-upload-action@1.4.1
+        with:
+          # Auth refresh token
+          refresh-token: ${{ secrets.REFRESHTOKEN }}
+          # Extension application target id
+          app-id: ${{ secrets.EXTENSIONID }}
+          # Token client id
+          client-id: ${{ secrets.CLIENTID }}
+          # Token client secret
+          client-secret: ${{ secrets.CLIENTSECRET }}
+          # Name of zipped target upload file
+          file-name: './extension.zip'
+          # True Or False to publish after upload
+          publish: true
