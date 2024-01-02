@@ -140,9 +140,8 @@ function debounce(func, timeout = 300) {
 
 
 const processChange = debounce(() => startUpgrading());
-//let querySelectorTag = 'ul[class="pagination pagination-mobile"]';
-//let querySelectorTag = 'div[componentid="search_result"]';
-let querySelectorTag = 'div[id^="vue-portal-target"]';
+let querySelectorTag = 'ul[class="pagination pagination-mobile"]';
+//let querySelectorTag = 'div[id^="vue-portal-target"]';
 new MutationObserver(function () {
   log("Navigated");
   processChange();
